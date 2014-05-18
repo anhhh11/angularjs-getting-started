@@ -424,7 +424,7 @@ htmlmin: {
         autoWatch: false
       },
       travis_unit: {
-	configFile: 'karma.conf.js',
+	configFile: 'karma_travis.conf.js',
         singleRun: true
       },
       travis_e2e: {
