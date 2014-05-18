@@ -5,5 +5,6 @@ angular.module('angularjsGettingStartedApp')
     $scope.awesomeThings = [
       'HTML5 Boilerplate'
       'AngularJS'
-      'Karma'
+      'Karma',
+      'Active'
     ]
