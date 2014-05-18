@@ -57,7 +57,7 @@ module.exports = function(config) {
     plugins: [
         'karma-jasmine',
         'karma-phantomjs-launcher',
-    ]
+    ],
     // Uncomment the following lines if you are using grunt's server to run the tests
     proxies: {
        '/': 'http://localhost:9000/'
