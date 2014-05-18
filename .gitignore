@@ -8,3 +8,4 @@ app/styles
 test
 *tmp*
 .fuse*
+coverage/
