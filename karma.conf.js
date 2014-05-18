@@ -17,11 +17,22 @@ module.exports = function(config) {
       'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
       'app/bower_components/angular-route/angular-route.js',
-      'app/scripts/*.js',
+      //'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
+    reporters: ['progress','coverage'],
+    
+    preprocessors: {
+      'app/scripts/**/*.js':['coverage'],
+    },
+    coverageReporter: {
+      type : 'html', 
+      dir: 'coverage/'
+    },
+
+    
 
     // list of files / patterns to exclude
     exclude: [],
@@ -56,6 +67,7 @@ module.exports = function(config) {
     plugins: [
     'karma-jasmine',
 	'karma-phantomjs-launcher',
+	'karma-coverage',
     ]
   });
 };

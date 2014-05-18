@@ -423,6 +423,14 @@ htmlmin: {
         singleRun: true,
         autoWatch: false
       },
+      travis_unit: {
+	configFile: 'karma.conf.js',
+        singleRun: true
+      },
+      travis_e2e: {
+	configFile: 'karma-e2e.conf.js',
+        singleRun: true
+      },
       server: {
         configFile: 'karma.conf.js',
         singleRun: false,
@@ -469,12 +477,22 @@ grunt.registerTask('test:e2e', [
                    'newer:coffee:development',
                    'newer:less:development',
                    'newer:coffee:test',
-
                    'concurrent:test',
     //'autoprefixer',
     'connect:test',
     'karma:e2e'
     ]);
+grunt.registerTask('test:travis',[
+   'clean:server',
+   'newer:coffee:development',
+   'newer:less:development',
+   'newer:coffee:test',
+    'concurrent:test',
+    'karma:travis_unit',
+    'karma:travis_e2e'
+
+]);
+
 
 grunt.registerTask('build', [
                    'clean:dist',
@@ -498,6 +516,7 @@ grunt.loadNpmTasks('grunt-contrib-coffee');
 grunt.loadNpmTasks('grunt-contrib-less');
 grunt.loadNpmTasks('grunt-newer');
 grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-istanbul');
 
 
 
