@@ -22,14 +22,16 @@ module.exports = function(config) {
       //'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
-    reporters: ['progress','coverage'],
+    //reporters: ['progress','coverage'],
+    reporters: ['progress'],
     
-    preprocessors: {
-      'app/scripts/**/*.js':['coverage'],
-    },
-    coverageReporter: {
-      type : 'text'
-    },
+//    preprocessors: {
+//      'app/scripts/**/*.js':['coverage'],
+//    },
+//    coverageReporter: {
+//      {type : 'text',dir: 'test/coverage'},
+//      {type : 'json',dir: 'test/coverage'},
+//    },
 
     
 
@@ -66,7 +68,7 @@ module.exports = function(config) {
     plugins: [
     'karma-jasmine',
 	'karma-phantomjs-launcher',
-	'karma-coverage',
+ //        'karma-coverage',
     ]
   });
 };

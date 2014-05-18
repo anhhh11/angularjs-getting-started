@@ -19,18 +19,19 @@ module.exports = function(config) {
       'app/bower_components/angular-route/angular-route.js',
       //'app/scripts/*.js',
       'app/scripts/**/*.js',
-      'test/mock/**/*.js',
+      //'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
-    reporters: ['progress','coverage'],
+//    reporters: ['progress','coverage'],
     
-    preprocessors: {
-      'app/scripts/**/*.js':['coverage'],
-    },
-    coverageReporter: {
-      type : 'html', 
-      dir: 'coverage/'
-    },
+//    preprocessors: {
+//      'app/scripts/**/*.js':['coverage'],
+//    },
+
+//    coverageReporter: {
+//      {type : 'html', dir: 'test/coverage/'},
+//      {type : 'json', dir: 'test/coverage/'},
+//    },
 
     
 
@@ -67,7 +68,8 @@ module.exports = function(config) {
     plugins: [
     'karma-jasmine',
 	'karma-phantomjs-launcher',
-	'karma-coverage',
+//	'karma-coverage',
+
     ]
   });
 };
