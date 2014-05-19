@@ -17,10 +17,15 @@ module.exports = function() {
     'app/bower_components/angular-route/angular-route.js',
     /* App specific code */
       //'app/scripts/*.js',
-      'app/scripts/**/*.js',
+      'app/scripts/services/**/*.js',
+      'app/scripts/directives/**/*.js',
+      'app/scripts/controllers/**/*.js',
+      'app/scripts/filters/**/*.js',
+      'app/scripts/config/routes.js',
+      'app/scripts/app.js',
     /* Test code */
       //'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      //'test/spec/**/*.js'
       ],
       reporters: ['progress'],
 
