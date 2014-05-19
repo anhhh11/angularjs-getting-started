@@ -8,7 +8,9 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-  require('load-grunt-tasks')(grunt); // ????
+  require('load-grunt-tasks')(grunt,{
+      pattern: ['grunt-*', '!grunt-template-jasmine-istanbul']
+}); // ????
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
   // Define the configuration for all the tasks
@@ -19,6 +21,28 @@ module.exports = function (grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist'
     },
+      jasmine: {
+	coverage: {
+            src: ['app/scripts/**/*.js'],
+            options: {
+                specs: ['test/**/*.js'],
+                template: require('grunt-template-jasmine-istanbul'),
+                templateOptions: {
+                    coverage: 'test/coverage/coverage.json',
+                    report: [
+                       {type:'html',options: {dir: 'test/coverage/html'}},
+                       {type:'text',options: {dir: 'test/coverage/text/'}},
+                       {type:'text-summary'}
+                    ],
+                    thresholds: {
+                        lines: 75,
+                        statements: 75,
+                        branches: 75,
+                        functions: 90
+                    }
+                }
+            }
+        }},
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -470,8 +494,8 @@ grunt.registerTask('test:unit', [
                    'newer:coffee:test',
                    'concurrent:test',
                    'connect:test',
-                   'karma:server'
-                   ]);
+                   'karma:server',
+  ]);
 grunt.registerTask('test:e2e', [
                    'clean:server',
                    'newer:coffee:development',
@@ -489,9 +513,11 @@ grunt.registerTask('test:travis',[
    'newer:coffee:test',
     'concurrent:test',
     'karma:travis_unit',
-    'karma:travis_e2e'
+    'karma:travis_e2e',
+    'jasmine:coverage',
 
 ]);
+grunt.registerTask('test:coverage',['jasmine:coverage']);
 
 
 grunt.registerTask('build', [
@@ -516,7 +542,10 @@ grunt.loadNpmTasks('grunt-contrib-coffee');
 grunt.loadNpmTasks('grunt-contrib-less');
 grunt.loadNpmTasks('grunt-newer');
 grunt.loadNpmTasks('grunt-contrib-watch');
-grunt.loadNpmTasks('grunt-istanbul');
+grunt.loadNpmTasks('grunt-istanbul-coverage');
+grunt.loadNpmTasks('grunt-contrib-jasmine');
+
+
 
 
 
