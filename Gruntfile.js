@@ -13,19 +13,31 @@
       pattern: ['grunt-*', '!grunt-template-jasmine-istanbul']
     }); // ????
     
+    require('jit-grunt')(grunt,{
+      'karma':'grunt-karma',
+      'coffee':'grunt-contrib-coffee',
+      'less':'grunt-contrib-less',
+      'newer':'grunt-newer',
+      'watch':'grunt-contrib-watch',
+      'coverage':'grunt-istanbul-coverage',
+      'jasmine':'grunt-contrib-jasmine',
+      'protractor':'protractor',
+      'selenium-webdriver-phantom':'grunt-selenium-webdriver-phantom'
+    });
+    
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
 
     //Load tasks
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-contrib-coffee');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-newer');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-istanbul-coverage');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-selenium-webdriver-phantom');
+    //grunt.loadNpmTasks('grunt-karma');
+    //grunt.loadNpmTasks('grunt-contrib-coffee');
+    //grunt.loadNpmTasks('grunt-contrib-less');
+    //grunt.loadNpmTasks('grunt-newer');
+    //grunt.loadNpmTasks('grunt-contrib-watch');
+    //grunt.loadNpmTasks('grunt-istanbul-coverage');
+    //grunt.loadNpmTasks('grunt-contrib-jasmine');
+    //grunt.loadNpmTasks('grunt-selenium-webdriver-phantom');
 
     
     // Define the configuration for all the tasks
@@ -47,6 +59,12 @@
         font_awesome_fonts: {
           command: 'cp -R bower_components/components-font-awesome/font app/font'
         },
+        protractor_webdriver_manager_update: {
+          options: {
+            stdout: true
+          },
+          command: require('path').resolve(__dirname, 'node_modules', 'protractor', 'bin', 'webdriver-manager') + ' update'
+        }
       },
       // Automatically inject Bower components into the app
       bowerInstall: {
@@ -83,7 +101,7 @@
       },
       coverage:{
         options: {
-          base : 'test/coverage/html',
+          base : 'test/coverage/html/',
           port: 9002,
           keepalive: true,
         }
@@ -108,20 +126,11 @@
         },
         phantom: {
           options: {
-            phantom: {}
-          }
-        },
-        custom_phantom: {
-          options: {
             phantom: {
-              path: 'node_modules/phantomjs/bin/phantomjs',
-              args: ['--webdriver', '9999']
+              //path: 'node_modules/phantomjs/bin/phantomjs',
+              //args: ['--webdriver', '9999']
             }
           }
-        },
-        others: {
-          path: '/path/to/selenium/standalone.jar',
-          args: ['-port', '8888']
         },
       },
       //Coverage
@@ -234,7 +243,7 @@ coffee: {
   },
 },
       // Make sure code styles are up to par and there are no obvious mistakes
-      // jshint: {
+      /// jshint: {
       //   options: {
       //     jshintrc: '.jshintrc',
       //     reporter: require('jshint-stylish')
@@ -421,7 +430,7 @@ coffee: {
 
       // Run some tasks in parallel to speed up the build process
       concurrent: {
-        compile_new_coffee_less:["newer:coffee:development","newer:less:development","coffee:test"],
+        compile_new_coffee_less:["newer:coffee:development","newer:less:development","newer:coffee:test"],
         server: [
         'copy:styles'
         ],
@@ -487,8 +496,8 @@ coffee: {
         midway_auto: {
           configFile: 'karma-midway.conf.js'
         },
-     }
-   });
+      }
+    });
 
  grunt.registerTask('serve', function (target) {
   if (target === 'dist') {
@@ -515,7 +524,8 @@ coffee: {
  grunt.registerTask('test', ['connect:test','karma:unit','karma:midway', 'karma:e2e']);
  grunt.registerTask('test:unit', ['karma:unit']);
  grunt.registerTask('test:midway', ['connect:test','karma:midway']);
- grunt.registerTask('test:e2e', ['connect:test', 'karma:e2e']);
+ //grunt.registerTask('test:e2e', ['connect:test', 'karma:e2e']);
+ grunt.registerTask('test:e2e', ['connect:test', 'test:protractor']);
 
 
  grunt.registerTask('autotest', ['autotest:unit']);
@@ -528,7 +538,7 @@ coffee: {
  grunt.registerTask('dev:test-unit', [
    //'clean:server',
    'concurrent:compile_new_coffee_less',
-   //'concurrent:test',
+   //'concurrent:test',:
    'autotest:unit'
    ]);
 
@@ -537,7 +547,8 @@ coffee: {
    'concurrent:compile_new_coffee_less',
    //'concurrent:test',
    //'autoprefixer',
-   'autotest:e2e'
+   //'autotest:e2e' -- DEPREDICATED
+   //
    ]);
 
  grunt.registerTask('dev:coverage',['connect:coverage','jasmine:coverage']);
@@ -574,7 +585,11 @@ coffee: {
 
 
 
-
+ grunt.registerTask('test:protractor', 
+  ['shell:protractor_webdriver_manager_update',
+  'selenium_webdriver_phantom', 
+  'protractor', 
+  'selenium_webdriver_phantom:stop']);
 
 
  grunt.registerTask('default', [
