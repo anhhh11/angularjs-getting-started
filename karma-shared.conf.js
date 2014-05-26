@@ -4,7 +4,7 @@
 module.exports = function() {
   return {
     // base path, that will be used to resolve files and exclude
-    basePath: '.',
+    basePath: './',
     colors: true,
 
     // testing framework to use (jasmine/mocha/qunit/...)
@@ -12,6 +12,9 @@ module.exports = function() {
 
     // list of files / patterns to load in the browser
     files: [
+    /*Map*/
+    //{pattern: '**/*.coffee', included: false, served: true, watched: false},
+    //{pattern: '**/*.js.map', included: false, served: true, watched: false},
     /* 3rd party code */
     'app/bower_components/angular/angular.js',
     'app/bower_components/angular-route/angular-route.js',
@@ -22,7 +25,7 @@ module.exports = function() {
       'app/scripts/services/**/*.js',
       'app/scripts/directives/**/*.js',
       'app/scripts/filters/**/*.js',
-      'app/scripts/config/routes.js',
+      //'app/scripts/config/routes.js',
     /* Test code */
       //'test/mock/**/*.js',
       //'test/spec/**/*.js'
@@ -43,7 +46,11 @@ module.exports = function() {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
     singleRun: false,
-
+    
+    preprocessors: {
+      'app/scripts/*.js': ['sourcemap'],
+      'test/**/*.js' : ['sourcemap']
+    },
 
     // Start these browsers, currently available:
     // - Chrome
@@ -62,6 +69,7 @@ module.exports = function() {
     'karma-jasmine',
     'karma-phantomjs-launcher',
     'karma-chrome-launcher',
+    'karma-sourcemap-loader',
     ]
   }
 };

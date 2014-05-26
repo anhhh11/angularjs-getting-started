@@ -1,3 +1,4 @@
+
  // Generated on 2014-05-08 using generator-angular 0.8.0
  'use strict';
 
@@ -9,20 +10,20 @@
 
   module.exports = function (grunt) {
 
-    require('load-grunt-tasks')(grunt,{
-      pattern: ['grunt-*', '!grunt-template-jasmine-istanbul']
-    }); // ????
+//    require('load-grunt-tasks')(grunt,{
+//      pattern: ['grunt-*', '!grunt-template-jasmine-istanbul']
+//    }); // ????
     
     require('jit-grunt')(grunt,{
       'karma':'grunt-karma',
-      'coffee':'grunt-contrib-coffee',
-      'less':'grunt-contrib-less',
-      'newer':'grunt-newer',
-      'watch':'grunt-contrib-watch',
+//      'coffee':'grunt-contrib-coffee',
+//      'less':'grunt-contrib-less',
+//      'newer':'grunt-newer',
+//      'watch':'grunt-contrib-watch',
       'coverage':'grunt-istanbul-coverage',
-      'jasmine':'grunt-contrib-jasmine',
-      'protractor':'protractor',
-      'selenium-webdriver-phantom':'grunt-selenium-webdriver-phantom'
+//      'jasmine':'grunt-contrib-jasmine',
+      protractor:'grunt-protractor-runner',
+//      'selenium-webdriver-phantom':'grunt-selenium-webdriver-phantom'
     });
     
     // Time how long tasks take. Can help when optimizing build times
@@ -94,7 +95,27 @@
           port: 9001,
           base: [
           '.tmp',
-          'test',
+          'test/spec',
+          '<%= yeoman.app %>'
+          ]
+        }
+      },
+      test_e2e: {
+        options: {
+          port: 9011,
+          base: [
+          '.tmp',
+          'test/e2e',
+          '<%= yeoman.app %>'
+          ]
+        }
+      },
+      test_midway: {
+        options: {
+          port: 9111,
+          base: [
+          '.tmp',
+          'test/midway',
           '<%= yeoman.app %>'
           ]
         }
@@ -115,15 +136,16 @@
       //E2E test
       protractor:{
         options: {
-          keepAlive: true,
         },
         all:{
-          configFile: 'test-protractor.conf.js'
+          configFile: 'test-protractor.conf.js',
         },
       },
       selenium_webdriver_phantom: {
         chrome: {
         },
+        //stop: {
+        //},
         phantom: {
           options: {
             phantom: {
@@ -165,7 +187,7 @@
         coffee: {
           files: ['<%= yeoman.app %>/coffee_scripts/**/*.coffee',
           'coffee_test/**/*.coffee'],
-          tasks: ['newer:coffee:development','newer:coffee:test'],
+          tasks: ['newer:coffee:development','newer:coffee:test','newer:coffee:test'],
           options: {
             spawn: false
           }
@@ -237,8 +259,8 @@ coffee: {
     dest: 'test',
     ext: '.js',
     options: {
-      sourceMap: true,
-      sourceMapDir: 'test/tmp_coffee_maps/',
+      //sourceMap: true,
+      //sourceMapDir: 'test/tmp_coffee_maps/',
     }
   },
 },
@@ -430,7 +452,7 @@ coffee: {
 
       // Run some tasks in parallel to speed up the build process
       concurrent: {
-        compile_new_coffee_less:["newer:coffee:development","newer:less:development","newer:coffee:test"],
+        compile_new_coffee_less:["newer:coffee:development","newer:less:development"],
         server: [
         'copy:styles'
         ],
@@ -475,10 +497,11 @@ coffee: {
         unit: {
           configFile: 'karma-unit.conf.js',
           singleRun: true,
-          autoWatch: false
+          autoWatch: false,
         },
         unit_auto: {
           configFile: 'karma-unit.conf.js',
+          //logLevel: 'DEBUG'
         },
         e2e: {
           configFile: 'karma-e2e.conf.js',
@@ -523,15 +546,15 @@ coffee: {
 
  grunt.registerTask('test', ['connect:test','karma:unit','karma:midway', 'karma:e2e']);
  grunt.registerTask('test:unit', ['karma:unit']);
- grunt.registerTask('test:midway', ['connect:test','karma:midway']);
+ grunt.registerTask('test:midway', ['connect:test_midway','karma:midway']);
  //grunt.registerTask('test:e2e', ['connect:test', 'karma:e2e']);
- grunt.registerTask('test:e2e', ['connect:test', 'test:protractor']);
+ grunt.registerTask('test:e2e', ['connect:test_e2e', 'test:protractor']);
 
 
  grunt.registerTask('autotest', ['autotest:unit']);
  grunt.registerTask('autotest:unit', ['connect:test','karma:unit_auto']);
- grunt.registerTask('autotest:midway', ['connect:test','karma:midway_auto']);
- grunt.registerTask('autotest:e2e', ['connect:test','karma:e2e_auto']);
+ grunt.registerTask('autotest:midway', ['connect:test_midway','karma:midway_auto']);
+ grunt.registerTask('autotest:e2e', ['connect:test_e2e','karma:e2e_auto']);
 
 
 
@@ -547,6 +570,7 @@ coffee: {
    'concurrent:compile_new_coffee_less',
    //'concurrent:test',
    //'autoprefixer',
+   'test:protractor'
    //'autotest:e2e' -- DEPREDICATED
    //
    ]);
@@ -588,8 +612,15 @@ coffee: {
  grunt.registerTask('test:protractor', 
   ['shell:protractor_webdriver_manager_update',
   'selenium_webdriver_phantom', 
+  'connect:test_e2e',
   'protractor', 
-  'selenium_webdriver_phantom:stop']);
+  //'selenium_webdriver_phantom:stop'
+    ]
+   );
+
+ grunt.registerTask('dev:test-e2e',['test:protractor']);
+
+ grunt.registerTask('dev:test-midway',['autotest:midway']);
 
 
  grunt.registerTask('default', [
