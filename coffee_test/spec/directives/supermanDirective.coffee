@@ -27,6 +27,24 @@ describe 'Unit test: superman directive', ->
     scope = $rootScope.$new()
     scope.fly = jasmine.createSpy('fly')
     elem = $compile('<superman enter="sky" transport="fly()"></superman>')(scope)
-    supermanCtrl = elem.controller('superman')
+    #supermanCtrl = elem.controller('superman')
     elem.triggerHandler('click')
     expect(scope.fly).toHaveBeenCalled()
+
+  it 'should have no ability by default', ->
+    scope = $rootScope.$new()
+    scope.ability = []
+    elem = $compile('<superman enter="sky" transport="fly()" ability="ability"></superman>')(scope)
+    expect(scope.ability).toEqual [] 
+
+
+  it 'should have strength and speed when add called', ->
+    scope = $rootScope.$new()
+    scope.ability = []
+    elem = $compile('<superman enter="sky" transport="fly()" ability="ability"></superman>')(scope)
+    ctrl = elem.controller('superman')
+    ctrl.addStrength()
+    ctrl.addSpeed()
+    expect(scope.ability).toContain "strength"
+    expect(scope.ability).toContain "speed"
+    
