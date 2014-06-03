@@ -1,3 +1,3 @@
 angular.module('angularjsGettingStartedApp')
-    .factory 'Data', () ->
-	   message: "hello"
+    .factory 'Data', () -> 
+      message: "hello"

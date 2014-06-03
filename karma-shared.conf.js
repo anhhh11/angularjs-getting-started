@@ -25,6 +25,9 @@ module.exports = function() {
       'app/scripts/services/**/*.js',
       'app/scripts/directives/**/*.js',
       'app/scripts/filters/**/*.js',
+      'app/scripts/config/**/*.js',
+      'app/scripts/lib/**/*.js',
+      'app/bower_components/angular-loading-bar/src/loading-bar.js',
       //'app/scripts/config/routes.js',
     /* Test code */
       //'test/mock/**/*.js',
@@ -60,8 +63,8 @@ module.exports = function() {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS','Chrome'],
-
+    browsers: ['PhantomJS'],
+    //,'Chrome'
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit

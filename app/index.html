@@ -7,24 +7,28 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
+    <base href="/">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="angularjsGettingStartedApp">
+  <body ng-app="angularjsGettingStartedApp" ng-controller="AppCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <error></error>
+    <div class="container" ng-view="">
+    
+      
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
       <!--
@@ -51,15 +55,52 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        
         <script src="scripts/app.js"></script>
+        <script src="scripts/services/data.js"></script>
+        <script src="scripts/services/avenger.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/first.js"></script>
-        <script src="scripts/services/data.js"></script>
+        <script src="scripts/controllers/first.js"></script>
+        <script src="scripts/controllers/cast.js"></script>
         <script src="scripts/controllers/second.js"></script>
+        <script src="scripts/controllers/app.js"></script>
+
+        <script src="scripts/directives/superman.js"></script>
+        <script src="scripts/directives/strength.js"></script>
+        <script src="scripts/directives/speed.js"></script>
+        <script src="scripts/directives/panel.js"></script>
+        <script src="scripts/directives/error.js"></script>
+
+        <script src="scripts/lib/router.js"></script>
+        <script src="scripts/config/routes.js"></script>
+        <script src="scripts/config/config.js"></script>
+        
+        <script src="scripts/filters/reverseMessage.js"></script>
+
+        <script src="scripts/controllers/note.js"></script>
+        <script src="scripts/controllers/httpDemoCtrl.js"></script>
+
+        <script src="scripts/services/note.js"></script>
+        <script src="scripts/services/serviceDemo.js"></script>
+
+        <script src="scripts/directives/book.js"></script>
+
+        <script type="text/ng-template" id="templates/book_script_template.html">
+          // WORKING
+          <h1>Empty</h1>
+          <div><h3 ng-click="toggleContent()">{{title}}</h3>
+            <div ng-show="isContentVisible" ng-transclude></div>
+          </div>
+        </script> 
+        <!-- TOOD: orgnize code
+        Ohttps://docs.angularjs.org/guide/module  -->
         <!-- endbuild -->
 </body>
 </html>

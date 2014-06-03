@@ -102,7 +102,7 @@
       },
       test_e2e: {
         options: {
-          port: 9011,
+          port: 9222,
           base: [
           '.tmp',
           'test/e2e',
@@ -136,6 +136,7 @@
       //E2E test
       protractor:{
         options: {
+          keepAlive: true
         },
         all:{
           configFile: 'test-protractor.conf.js',
@@ -185,9 +186,11 @@
           tasks: ['bowerInstall']
         },
         coffee: {
-          files: ['<%= yeoman.app %>/coffee_scripts/**/*.coffee',
+          files: [
+          'app/coffee_scripts/*.coffee',
+          'app/coffee_scripts/**/*.coffee',
           'coffee_test/**/*.coffee'],
-          tasks: ['newer:coffee:development','newer:coffee:test','newer:coffee:test'],
+          tasks: ['newer:coffee:development','newer:coffee:test'],
           options: {
             spawn: false
           }
@@ -199,13 +202,13 @@
            spawn: false
          },
        },
-       js: {
-       files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-       tasks: ['newer:jshint:all'],
-       options: {
-        livereload: true
-      }
-    },
+      //  js: {
+      //  files: ['<%= yeoman.app %>/scripts/**/*.js'],
+      //  tasks: ['newer:jshint:all'],
+      //  options: {
+      //   livereload: true
+      // }
+    // },
         //jsTest: {
         // files: ['test/spec/{,*/}*.js'],
         //  tasks: ['newer:jshint:test'],//, 'karma']
@@ -613,8 +616,7 @@ coffee: {
   ['shell:protractor_webdriver_manager_update',
   'selenium_webdriver_phantom', 
   'connect:test_e2e',
-  'protractor', 
-  //'selenium_webdriver_phantom:stop'
+  'protractor'
     ]
    );
 

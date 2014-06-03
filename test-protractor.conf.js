@@ -3,6 +3,7 @@ exports.config = {
 	specs: ['test/e2e/*.js'],
 	baseUrl: 'http://localhost:9001',
 	framework: 'jasmine',
+  keepAlive: true,
 	jasmineNodeOpts: {
 		showColors: true, // Use colors in the command line report.
 	},

@@ -1,0 +1,15 @@
+<div>
+  {{ url }}
+  <a href="/note">Link</a>
+  <input type="text" ng-model="searchText.name">
+  <table>
+    <tr ng-repeat="actor in casts | orderBy:'name':'desc' | limitTo:4 | filter:searchText">
+      <td>{{ actor.name | lowercase }}</td>
+      <td>{{ actor.character | uppercase }}</td>
+    </tr>
+  </table>
+  <panel>
+    <h>Hello</h>
+  </panel>
+  panel>
+</div>

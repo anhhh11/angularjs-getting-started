@@ -2,7 +2,7 @@
 
 describe 'Controller: MainCtrl', () ->
   # load the controller's module
-  beforeEach(module 'angularjsGettingStartedApp')
+  beforeEach module('angularjsGettingStartedApp')
 
   #var MainCtrl,
   scope = []
@@ -14,4 +14,4 @@ describe 'Controller: MainCtrl', () ->
     }
 
   it 'should attach a list of awesomeThings to the scope',() ->
-    expect(scope.awesomeThings.length).toBe(40)
+    expect(scope.awesomeThings.length).toBe(5)

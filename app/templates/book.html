@@ -1,0 +1,18 @@
+<div>
+  <h1>{{title}}</h1>
+  <div class="note-list">
+    <ul>
+      <li ng-repeat="note in notes" note text="{{note}}" style="font-size: {{($index+10)*2}}px"></li>
+    </ul>
+  </div>
+  <form name="mainForm" id="mainForm">
+    <input ng-model="noteText" name="noteText" type='text' ng-minlength="3" ng-maxlength="50" required/>
+    <span class="error" ng-show="mainForm.noteText.$error.maxlength">Too long</span>
+    <span class="error" ng-show="mainForm.noteText.$error.minlength">Too short</span>
+    <span class="error" ng-show="mainForm.noteText.$error.required">Required</span>
+    <p>{{noteText}}</p>
+    <button name='add' ng-click="addNote(noteText)">Add</button>
+    <button name='remove' ng-click="removeNote()">Remove</button>
+    <button ng-click="ev=$event;$log.info(noteText);">test event {{ev.pageX}}</button>
+  </form>
+</div>

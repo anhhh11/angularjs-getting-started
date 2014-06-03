@@ -1,18 +1,20 @@
 angular.module('angularjsGettingStartedApp')
-.controller 'SecondCtrl', ($scope,Data) ->
-	$scope.data = Data
+.controller 'SecondCtrl', ($scope,Data,$location) ->
+  #console.log dataService1
 
-	$scope.reversedMessage = () -> $scope.data.message.split("").reverse().join("")
+  $scope.data = Data
 
-	$scope.master = {}
+  master = {};
 
-	$scope.update = (user) ->
-		$scope.master = angular.copy(user)
+  $scope.update = (user) ->
+    master = angular.copy(user)
 
-	$scope.reset = () ->
-		$scope.user = angular.copy($scope.master)
 
-	$scope.isUnchanged = (user) ->
-		angular.equals(user, $scope.master)
+  $scope.reset = () ->
+    $scope.user = angular.copy(master)
 
-	$scope.reset()
+  $scope.isUnchanged = (user) ->
+    angular.equals(user, master)
+
+
+  $scope.reset();
